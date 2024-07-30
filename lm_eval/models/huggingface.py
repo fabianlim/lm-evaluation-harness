@@ -36,6 +36,16 @@ from lm_eval.models.utils import (
     stop_sequences_criteria,
 )
 
+try:
+    print ('instruct lab package detected: Registering Dolomite models')
+    from instructlab.dolomite import GPTDolomiteConfig, GPTDolomiteModel
+    from instructlab.dolomite.hf_models import GPTDolomiteForCausalLM
+    transformers.AutoConfig.register(GPTDolomiteConfig.model_type, GPTDolomiteConfig)
+    transformers.AutoModel.register(GPTDolomiteConfig, GPTDolomiteModel)
+    transformers.AutoModelForCausalLM.register(GPTDolomiteConfig, GPTDolomiteForCausalLM)
+except:
+    pass
+
 
 eval_logger = utils.eval_logger
 
